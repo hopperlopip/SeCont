@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blake3" Version="2.0.0" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.5.1" />
+    <PackageReference Include="OpenGost.Security.Cryptography" Version="0.2.2" />
+  </ItemGroup>
+
+</Project>

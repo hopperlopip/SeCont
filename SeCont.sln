@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeCont", "SeCont\SeCont.csproj", "{F64A1534-53BF-4F74-8344-57D7FDF95A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeContCoreLib", "SeContCoreLib\SeContCoreLib.csproj", "{8DD5CE86-7614-453B-9D1F-0E94AC6C6E2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F64A1534-53BF-4F74-8344-57D7FDF95A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F64A1534-53BF-4F74-8344-57D7FDF95A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F64A1534-53BF-4F74-8344-57D7FDF95A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F64A1534-53BF-4F74-8344-57D7FDF95A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD5CE86-7614-453B-9D1F-0E94AC6C6E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD5CE86-7614-453B-9D1F-0E94AC6C6E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD5CE86-7614-453B-9D1F-0E94AC6C6E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD5CE86-7614-453B-9D1F-0E94AC6C6E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59466D67-D099-4CF9-B73A-341A76CCE956}
+	EndGlobalSection
+EndGlobal
