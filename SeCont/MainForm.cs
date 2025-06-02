@@ -633,7 +633,8 @@ namespace SeCont
 
         private void ExtractDirectory(EncryptedDirectory encryptedDirectory, string parentDirectoryPath)
         {
-            string directoryPath = Path.Combine(parentDirectoryPath, encryptedDirectory.Name);
+            string directoryName = NormalizeFileName(encryptedDirectory.Name);
+            string directoryPath = Path.Combine(parentDirectoryPath, directoryName);
             EncryptedDirectory[] innerEncryptedDirectories = encryptedDirectory.GetEncryptedDirectories();
             EncryptedFile[] encryptedFiles = encryptedDirectory.GetEncryptedFiles();
 
@@ -641,10 +642,11 @@ namespace SeCont
 
             foreach (var encryptedFile in encryptedFiles)
             {
-                string filePath = Path.Combine(directoryPath, encryptedFile.Name);
+                string fileName = NormalizeFileName(encryptedFile.Name);
+                string filePath = Path.Combine(directoryPath, fileName);
                 if (encryptedFile.IsDataEncrypted)
                 {
-                    MessageBox.Show($"The file \"{encryptedFile.Name}\" is encrypted and should be decrypted before extracting\r\n" +
+                    MessageBox.Show($"The file \"{encryptedFile.Name}\" is encrypted and should be decrypted before extracting.\r\n" +
                         $"Type the password for this file in the next window.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     GetEncryptionAndKey(false, out _, out var key);
                     if (key.Length == 0)
@@ -674,16 +676,14 @@ namespace SeCont
             }
         }
 
-        private EncryptedDirectory CreateDirectory(string directoryName, EncryptedFile[]? encryptedFiles = null)
+        private static string NormalizeFileName(string fileName, char replaceChar = '_')
         {
-            EncryptedDirectory encryptedDirectory = new EncryptedDirectory(directoryName);
-
-            if (encryptedFiles != null)
-                encryptedDirectory.AddEncryptedFiles(encryptedFiles);
-
-            _securityContainer.AddEncryptedDirectory(encryptedDirectory);
-
-            return encryptedDirectory;
+            var forbiddenChars = Path.GetInvalidFileNameChars();
+            foreach (char forbiddenChar in forbiddenChars)
+            {
+                fileName = fileName.Replace(forbiddenChar, replaceChar);
+            }
+            return fileName;
         }
 
         #endregion
