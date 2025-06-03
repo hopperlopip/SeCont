@@ -59,6 +59,9 @@ namespace SeContCoreLib
 
         private static void AddEncryptionAlgorithms()
         {
+            List<EncryptionAlgorithmBuilder> encryptionAlgorithmBuilders = new();
+            Dictionary<EncryptionAlgorithmBuilder, int> indexDictionary = new();
+
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 foreach (Type type in assembly.GetTypes())
@@ -67,22 +70,38 @@ namespace SeContCoreLib
                     {
                         if (attribute is EncryptionAlgorithmAttribute encryptionAlgorithmAttribute)
                         {
-                            EncryptionAlgorithmBuilder encryptionAlgorithmBuilder = new EncryptionAlgorithmBuilder(type);
-
                             int encryptionAlgorithmIndex = encryptionAlgorithmAttribute.Index;
-                            if (encryptionAlgorithmIndex > 0 && encryptionAlgorithmIndex <= _encryptionAlgorithms.Count)
-                            {
-                                _encryptionAlgorithms.Insert(encryptionAlgorithmIndex, encryptionAlgorithmBuilder);
-                            }
-                            else
-                            {
-                                _encryptionAlgorithms.Add(encryptionAlgorithmBuilder);
-                            }
+                            EncryptionAlgorithmBuilder encryptionAlgorithmBuilder = new EncryptionAlgorithmBuilder(type);
+                            encryptionAlgorithmBuilders.Add(encryptionAlgorithmBuilder);
+                            indexDictionary.Add(encryptionAlgorithmBuilder, encryptionAlgorithmIndex);
+
                             EncryptionAlgorithmsDictionary.Add(encryptionAlgorithmAttribute.ID, type);
                         }
                     }
                 }
             }
+
+            EncryptionAlgorithmBuilder[] orderedEncryptionAlgorithmBuilders = new EncryptionAlgorithmBuilder[encryptionAlgorithmBuilders.Count];
+            List<EncryptionAlgorithmBuilder> otherEncryptionAlgorithmBuilders = new();
+            foreach (EncryptionAlgorithmBuilder encryptionAlgorithmBuilder in encryptionAlgorithmBuilders)
+            {
+                int encryptionAlgorithmIndex = indexDictionary[encryptionAlgorithmBuilder];
+
+                if (encryptionAlgorithmIndex >= 0 && encryptionAlgorithmIndex < encryptionAlgorithmBuilders.Count)
+                {
+                    orderedEncryptionAlgorithmBuilders[encryptionAlgorithmIndex] = encryptionAlgorithmBuilder;
+                }
+                else
+                {
+                    otherEncryptionAlgorithmBuilders.Add(encryptionAlgorithmBuilder);
+                }
+            }
+            List<EncryptionAlgorithmBuilder> finalEncryptionAlgorithmBuilders = new();
+            finalEncryptionAlgorithmBuilders.AddRange(orderedEncryptionAlgorithmBuilders);
+            finalEncryptionAlgorithmBuilders.RemoveAll(builder => builder == null);
+            finalEncryptionAlgorithmBuilders.AddRange(otherEncryptionAlgorithmBuilders);
+
+            _encryptionAlgorithms.AddRange(finalEncryptionAlgorithmBuilders);
         }
 
         #region Encryption/Decryption methods

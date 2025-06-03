@@ -2,11 +2,11 @@
 
 namespace SeContCoreLib.EncryptionAlgorithms
 {
-    [EncryptionAlgorithm(5, 5)]
-    public class SerpentAlgorithm : EncryptionAlgorithm
+    [EncryptionAlgorithm(4, 4)]
+    public class ThreefishAlgorithm : EncryptionAlgorithm
     {
-        private SerpentEngine _serpent = new SerpentEngine();
-        public override string Name => "Serpent";
+        private ThreefishEngine _threefish = new ThreefishEngine(256);
+        public override string Name => "Threefish";
 
         private byte[] _iv = Array.Empty<byte>();
         public override byte[] IV
@@ -25,17 +25,17 @@ namespace SeContCoreLib.EncryptionAlgorithms
 
         public override byte[] Encrypt(byte[] key, byte[] data)
         {
-            return EncryptionAlgorithmUtils.SymmetricAlgorithmEncryptBC(_serpent, key, IV, data);
+            return EncryptionAlgorithmUtils.SymmetricAlgorithmEncryptBC(_threefish, key, IV, data);
         }
 
         public override byte[] Decrypt(byte[] key, byte[] data)
         {
-            return EncryptionAlgorithmUtils.SymmetricAlgorithmDecryptBC(_serpent, key, IV, data);
+            return EncryptionAlgorithmUtils.SymmetricAlgorithmDecryptBC(_threefish, key, IV, data);
         }
 
         public override void GenerateIV()
         {
-            _iv = EncryptionAlgorithmUtils.GenerateIVForBC(_serpent);
+            _iv = EncryptionAlgorithmUtils.GenerateIVForBC(_threefish);
         }
     }
 }
