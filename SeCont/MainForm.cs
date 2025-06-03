@@ -1,5 +1,6 @@
 using SeContCoreLib;
 using SeContCoreLib.FileStructure;
+using System.Text.Json;
 
 namespace SeCont
 {
@@ -7,6 +8,8 @@ namespace SeCont
     {
         private const string FILE_ICON = "file-icon";
         private const string ENCRYPTED_FILE_ICON = "locker-icon";
+        private const string CONFIG_PATH = "./config.json";
+        private const string STARTUP_MESSAGE_TEXT = "";
 
         private static MainForm? _instance;
         private static MainForm Instance
@@ -21,6 +24,14 @@ namespace SeCont
 
         private TreeNode SelectedTreeNode => mainTreeView.SelectedNode;
 
+        private static JsonSerializerOptions JsonOptions = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            IncludeFields = true,
+        };
+
+        private Config _config = new Config();
+
         private SecurityContainer _securityContainer = new SecurityContainer();
         public static IReadOnlyList<EncryptedObject> EncryptedObjects { get => Instance._securityContainer.EncryptedObjects; }
 
@@ -30,6 +41,8 @@ namespace SeCont
             InitializeComponent();
             mainTreeView.MouseDown += MainTreeView_MouseDown;
             mainTreeView.AfterLabelEdit += MainTreeView_AfterLabelEdit;
+            _config = GetConfig();
+            ShowFirstStartupMessageGUI();
         }
 
 
@@ -482,6 +495,16 @@ namespace SeCont
             selectedNode.Remove();
         }
 
+        private void ShowFirstStartupMessageGUI()
+        {
+            if (_config.ShowStartupMessage)
+            {
+                MessageBox.Show(STARTUP_MESSAGE_TEXT, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _config.ShowStartupMessage = false;
+                SaveConfig(_config);
+            }
+        }
+
 
         #endregion
 
@@ -489,6 +512,38 @@ namespace SeCont
 
 
         #region Helper methods
+
+        private Config GetConfig()
+        {
+            try
+            {
+                if (!File.Exists(CONFIG_PATH))
+                {
+                    Config newConfig = new Config();
+                    SaveConfig(newConfig);
+                    return newConfig;
+                }
+                string configJson = File.ReadAllText(CONFIG_PATH);
+                Config config = JsonSerializer.Deserialize<Config>(configJson, JsonOptions) ?? new Config();
+                return config;
+            }
+            catch
+            {
+                return new Config();
+            }
+        }
+
+        private void SaveConfig(Config config)
+        {
+            try
+            {
+                if (File.Exists(CONFIG_PATH))
+                    File.Delete(CONFIG_PATH);
+                string configJson = JsonSerializer.Serialize(config, JsonOptions);
+                File.WriteAllText(CONFIG_PATH, configJson);
+            }
+            catch { }
+        }
 
         private void GetEncryptionAndKey(bool showEncryptionSelection, out EncryptionAlgorithm? encryptionAlgorithm, out byte[] key)
         {
