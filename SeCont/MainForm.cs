@@ -9,7 +9,7 @@ namespace SeCont
         private const string FILE_ICON = "file-icon";
         private const string ENCRYPTED_FILE_ICON = "locker-icon";
         private const string CONFIG_PATH = "./config.json";
-        private const string STARTUP_MESSAGE_TEXT = "";
+        private const string STARTUP_MESSAGE_TEXT = "In order to add file or directory click right button of the mouse on the main area and select needed button.";
 
         private static MainForm? _instance;
         private static MainForm Instance
@@ -42,7 +42,7 @@ namespace SeCont
             mainTreeView.MouseDown += MainTreeView_MouseDown;
             mainTreeView.AfterLabelEdit += MainTreeView_AfterLabelEdit;
             _config = GetConfig();
-            ShowFirstStartupMessageGUI();
+            Task.Run(ShowFirstStartupMessageGUI);
         }
 
 
