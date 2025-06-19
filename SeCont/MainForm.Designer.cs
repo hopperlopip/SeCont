@@ -238,50 +238,50 @@
             // 
             fileMenuStrip.Items.AddRange(new ToolStripItem[] { extractFileToolStripMenuItem, renameFileToolStripMenuItem, toolStripSeparator5, encryptFileToolStripMenuItem, decryptFileToolStripMenuItem, toolStripSeparator2, removeFileToolStripMenuItem });
             fileMenuStrip.Name = "fileMenuStrip";
-            fileMenuStrip.Size = new Size(181, 148);
+            fileMenuStrip.Size = new Size(137, 126);
             // 
             // extractFileToolStripMenuItem
             // 
             extractFileToolStripMenuItem.Name = "extractFileToolStripMenuItem";
-            extractFileToolStripMenuItem.Size = new Size(180, 22);
+            extractFileToolStripMenuItem.Size = new Size(136, 22);
             extractFileToolStripMenuItem.Text = "Extract file";
             extractFileToolStripMenuItem.Click += extractFileToolStripMenuItem_Click;
             // 
             // renameFileToolStripMenuItem
             // 
             renameFileToolStripMenuItem.Name = "renameFileToolStripMenuItem";
-            renameFileToolStripMenuItem.Size = new Size(180, 22);
+            renameFileToolStripMenuItem.Size = new Size(136, 22);
             renameFileToolStripMenuItem.Text = "Rename file";
             renameFileToolStripMenuItem.Click += renameFileToolStripMenuItem_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(177, 6);
+            toolStripSeparator5.Size = new Size(133, 6);
             // 
             // encryptFileToolStripMenuItem
             // 
             encryptFileToolStripMenuItem.Name = "encryptFileToolStripMenuItem";
-            encryptFileToolStripMenuItem.Size = new Size(180, 22);
+            encryptFileToolStripMenuItem.Size = new Size(136, 22);
             encryptFileToolStripMenuItem.Text = "Encrypt file";
             encryptFileToolStripMenuItem.Click += encryptFileToolStripMenuItem_Click;
             // 
             // decryptFileToolStripMenuItem
             // 
             decryptFileToolStripMenuItem.Name = "decryptFileToolStripMenuItem";
-            decryptFileToolStripMenuItem.Size = new Size(180, 22);
+            decryptFileToolStripMenuItem.Size = new Size(136, 22);
             decryptFileToolStripMenuItem.Text = "Decrypt file";
             decryptFileToolStripMenuItem.Click += decryptFileToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(133, 6);
             // 
             // removeFileToolStripMenuItem
             // 
             removeFileToolStripMenuItem.Name = "removeFileToolStripMenuItem";
-            removeFileToolStripMenuItem.Size = new Size(180, 22);
+            removeFileToolStripMenuItem.Size = new Size(136, 22);
             removeFileToolStripMenuItem.Text = "Remove file";
             removeFileToolStripMenuItem.Click += removeFileToolStripMenuItem_Click;
             // 
@@ -295,6 +295,7 @@
             MainMenuStrip = menuStrip;
             Name = "MainForm";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "SeCont";
             treeMenuStrip.ResumeLayout(false);
             directoryMenuStrip.ResumeLayout(false);
